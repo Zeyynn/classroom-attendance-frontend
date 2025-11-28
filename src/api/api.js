@@ -5,7 +5,6 @@ export const get = async (endpoint) => {
   return await res.json();
 };
 
-
 export const post = async (endpoint, data) => {
   const res = await fetch(`${API_URL}${endpoint}`, {
     method: "POST",
