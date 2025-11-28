@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
-import { get } from "../api/api";
+import React, { useEffect, useState } from "react";
+import { get } from "../API/api";
 
 export default function ClassesPage() {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    get("/classes") 
-      .then((data) => setClasses(data))
-      .catch((error) => console.error("Error fetching classes:", error));
+    async function fetchData() {
+      const data = await get("/classes");
+      setClasses(data);
+    }
+    fetchData();
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Classes</h2>
+    <div>
+      <h1>Classes</h1>
       {classes.length === 0 ? (
         <p>No classes found.</p>
       ) : (
         <ul>
-          {classes.map((c) => (
-            <li key={c.id}>{c.class_name}</li>
+          {classes.map((cls) => (
+            <li key={cls.id}>{cls.class_name}</li>
           ))}
         </ul>
       )}
